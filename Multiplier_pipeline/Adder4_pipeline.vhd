@@ -20,25 +20,14 @@ architecture str_pipeline of Adder4_pipeline is
         Cout_fa: out std_logic );
     end component;
     
-    component reg1bit port(
-        clk_reg1    : in  std_logic;
-        input_reg1  : in  std_logic;
-        output_reg1 : out std_logic
-    );
-    end component;
-
-    component reg2bit port(
-        clk_reg2    : in  std_logic;
-        input_reg2  : in  std_logic;
-        output_reg2 : out std_logic
-    );
-    end component;
-    
-    component reg3bit port(
-        clk_reg3    : in  std_logic;
-        input_reg3  : in  std_logic;
-        output_reg3 : out std_logic
-    );
+    component reg_generic is
+        generic (
+            BITS  : integer;
+            DELAY : integer );
+        port (
+            clk_rg    : in  std_logic;
+            input_rg  : in  std_logic_vector(BITS-1 downto 0);
+            output_rg : out std_logic_vector(BITS-1 downto 0));
     end component;
 
     signal sout_sig: std_logic_vector(3 downto 0);
@@ -64,27 +53,31 @@ begin
     );   
 
     -- S0 should delay 3 cycles to be synchronised with S3
-    Reg_Sout0: reg3bit port map(
-        clk_reg3 => clk_a4,
-        input_reg3 => sout_sig(0),
-        output_reg3 => Sout_a4(0)
-    );
-    
+    Reg_Sout0: reg_generic 
+        generic map( BITS => 1, DELAY => 3)
+        port map( 
+            clk_rg => clk_a4,
+            input_rg(0) => sout_sig(0),
+            output_rg(0) => Sout_a4(0)
+        );
+
     -- Full Adder 1
     -- FA1 delay = 1 cycle input + 2 cycle output
-
-    Reg_InputA1: reg1bit port map(
-        clk_reg1 => clk_a4,
-        input_reg1 => inputA_a4(1),
-        output_reg1 => delay_A1
-    );
-
-    Reg_InputB1: reg1bit port map(
-        clk_reg1 => clk_a4,
-        input_reg1 => inputB_a4(1),
-        output_reg1 => delay_B1
-    );
-
+    Reg_InputA1: reg_generic 
+        generic map( BITS => 1, DELAY => 1)
+        port map( 
+            clk_rg => clk_a4,
+            input_rg(0) => inputA_a4(1),
+            output_rg(0) => delay_A1
+        );
+    
+    Reg_InputB1: reg_generic 
+        generic map( BITS => 1, DELAY => 1)
+        port map( 
+            clk_rg => clk_a4,
+            input_rg(0) => inputB_a4(1),
+            output_rg(0) => delay_B1
+        );
     
     FA1: FA port map(
         clk_fa => clk_a4,
@@ -94,27 +87,33 @@ begin
         Sout_fa => sout_sig(1),
         Cout_fa => cout_sig(1)
     );  
-   
-    Reg_Sout1: reg2bit port map(
-        clk_reg2 => clk_a4,
-        input_reg2 => sout_sig(1),
-        output_reg2 => Sout_a4(1)
-    );
     
+    Reg_Sout1: reg_generic 
+        generic map( BITS => 1, DELAY => 2)
+        port map( 
+            clk_rg => clk_a4,
+            input_rg(0) => sout_sig(1),
+            output_rg(0) => Sout_a4(1)
+        );
+
     -- Full Adder 2
     -- FA2 delay = 2 input + 1 output
 
-    Reg_InputA2: reg2bit port map(
-        clk_reg2 => clk_a4,
-        input_reg2 => inputA_a4(2),
-        output_reg2 => delay_A2
-    );
+    Reg_InputA2: reg_generic 
+        generic map( BITS => 1, DELAY => 2)
+        port map( 
+            clk_rg => clk_a4,
+            input_rg(0) => inputA_a4(2),
+            output_rg(0) => delay_A2
+        );
 
-    Reg_InputB2: reg2bit port map(
-        clk_reg2 => clk_a4,
-        input_reg2 => inputB_a4(2),
-        output_reg2 => delay_B2
-    );
+    Reg_InputB2: reg_generic 
+        generic map( BITS => 1, DELAY => 2)
+        port map( 
+            clk_rg => clk_a4,
+            input_rg(0) => inputB_a4(2),
+            output_rg(0) => delay_B2
+        );
 
     FA2: FA port map(
         clk_fa => clk_a4,
@@ -125,27 +124,32 @@ begin
         Cout_fa => cout_sig(2)
     );  
 
-    Reg_Sout2: reg1bit port map(
-        clk_reg1 => clk_a4,
-        input_reg1 => sout_sig(2),
-        output_reg1 => Sout_a4(2)
-    );
+    Reg_Sout2: reg_generic 
+        generic map( BITS => 1, DELAY => 1)
+        port map( 
+            clk_rg => clk_a4,
+            input_rg(0) => sout_sig(2),
+            output_rg(0) => Sout_a4(2)
+        );
 
     -- Full Adder 3
     -- FA3 delay = 3 input + 0 output
 
-    Reg_InputA3: reg3bit port map(
-        clk_reg3 => clk_a4,
-        input_reg3 => inputA_a4(3),
-        output_reg3 => delay_A3
-    );
+    Reg_InputA3: reg_generic 
+        generic map( BITS => 1, DELAY => 3)
+        port map( 
+            clk_rg => clk_a4,
+            input_rg(0) => inputA_A4(3),
+            output_rg(0) => delay_A3
+        );
 
-    Reg_InputB3: reg3bit port map(
-        clk_reg3 => clk_a4,
-        input_reg3 => inputB_a4(3),
-        output_reg3 => delay_B3
-    );
-
+    Reg_InputB3: reg_generic 
+        generic map( BITS => 1, DELAY => 3)
+        port map( 
+            clk_rg => clk_a4,
+            input_rg(0) => inputB_A4(3),
+            output_rg(0) => delay_B3
+        );
     FA3: FA port map(
         clk_fa => clk_a4,
         inputA_fa => delay_A3,
