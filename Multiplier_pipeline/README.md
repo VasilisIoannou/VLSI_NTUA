@@ -14,7 +14,7 @@ This project implements the multiplier using two distinct methods:
 
 This implementation follows a traditional structural approach to pipelining:
 
-    Structure: It uses a mult_cell to generate partial products and a Adder4_pipeline component to sum them.
+Structure: It uses a mult_cell to generate partial products and a Adder4_pipeline component to sum them.
 
 Synchronization: To keep the signals aligned as they move through different stages of the addition, specific delays are added using a generic register component (reg_generic).
 
@@ -24,7 +24,7 @@ Characteristics: This approach is straightforward for small-scale designs but ca
 
 The systolic implementation uses a more advanced and regular architecture:
 
-    Processing Elements (PE): The design is built from a grid of identical systolic_pe units.
+Processing Elements (PE): The design is built from a grid of identical systolic_pe units.
 
 Data Flow: Inputs A and B, along with partial sums and carry signals, "pump" through the array of PEs rhythmically at every clock cycle (similar to a biological systolic system).
 
@@ -32,6 +32,6 @@ Modular Design: Every PE contains its own internal registers, meaning data only 
 
 Advantages:
 
-    Scalability: Because of its regular 2D matrix structure, it is easily scalable to higher bit-widths (e.g., 8-bit, 16-bit).
+Scalability: Because of its regular 2D matrix structure, it is easily scalable to higher bit-widths (e.g., 8-bit, 16-bit).
 
 Performance: Since signals only travel short distances between neighbors, it minimizes wire delays, allowing for very high clock speeds in VLSI implementations.
