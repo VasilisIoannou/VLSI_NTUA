@@ -21,7 +21,7 @@ Synchronization: To keep the signals aligned as they move through different stag
 Characteristics: This approach is straightforward for small-scale designs but can lead to complex routing as the number of bits increases.
 
 *RTL Schematic:*
-![[Pipeline_MULT_RTL.png]]
+![[../readme_pictures/Pipeline_MULT_RTL.png]]
 
 ## 2. Systolic Pipelining Multiplier (Mult_systolic.vhd)
 
