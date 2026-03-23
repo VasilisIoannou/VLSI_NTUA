@@ -20,6 +20,9 @@ Synchronization: To keep the signals aligned as they move through different stag
 
 Characteristics: This approach is straightforward for small-scale designs but can lead to complex routing as the number of bits increases.
 
+*RTL Schematic:*
+![[Pipeline_MULT_RTL.png]]
+
 ## 2. Systolic Pipelining Multiplier (Mult_systolic.vhd)
 
 The systolic implementation uses a more advanced and regular architecture:
@@ -30,8 +33,11 @@ Data Flow: Inputs A and B, along with partial sums and carry signals, "pump" thr
 
 Modular Design: Every PE contains its own internal registers, meaning data only moves between adjacent cells.
 
-Advantages:
+*Advantages*:
 
 Scalability: Because of its regular 2D matrix structure, it is easily scalable to higher bit-widths (e.g., 8-bit, 16-bit).
 
 Performance: Since signals only travel short distances between neighbors, it minimizes wire delays, allowing for very high clock speeds in VLSI implementations.
+
+*RTL Schematic:*
+![[Systolic_Mult_RTL.png]]
