@@ -21,7 +21,7 @@ Synchronization: To keep the signals aligned as they move through different stag
 Characteristics: This approach is straightforward for small-scale designs but can lead to complex routing as the number of bits increases.
 
 *RTL Schematic:*
-![[Pipeline_MULT_RTL.png]]
+![RTL Schematic](./readme_pictures/Pipeline_MULT_RTL.png)
 
 ## 2. Systolic Pipelining Multiplier (Mult_systolic.vhd)
 
@@ -40,4 +40,5 @@ Scalability: Because of its regular 2D matrix structure, it is easily scalable t
 Performance: Since signals only travel short distances between neighbors, it minimizes wire delays, allowing for very high clock speeds in VLSI implementations.
 
 *RTL Schematic:*
-![[Systolic_Mult_RTL.png]]
+![RTL Schematic](./readme_pictures/Systolic_Mult_RTL.png)
+
